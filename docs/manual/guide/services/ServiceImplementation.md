@@ -34,13 +34,13 @@ By convention, Play will automatically load a module called `Module` in the root
 
 ## Working with streams
 
-When the request and response bodies are strict, working with them as quite straight forward.  If however they are streamed, you'll need to use Akka streams to work with them.  Let's take a look at how some of the streamed service calls in the [[service descriptors|ServiceDescriptors#Streamed-messages]] examples might be implemented.
+When the request and response bodies are strict, working with them is quite straight forward.  If however they are streamed, you'll need to use Akka streams to work with them.  Let's take a look at how some of the streamed service calls in the [[service descriptors|ServiceDescriptors#Streamed-messages]] examples might be implemented.
 
 The `tick` service call is going to return a `Source` that sends messages at the specified interval.  Akka streams has a helpful constructor for such a stream:
 
 @[tick-service-call](code/docs/services/ServiceImplementation.java)
 
-The first two arguments are the delay before messages should be sent, and the interval at which they should be sent.  The third argument is the message that should be sent on each tick.  Calling this service call with an interval of `1000` and a request message of `tick` will result in a stream being returned that sent a `tick` message every second.
+The first argument is the delay before messages should be sent, and the the second is the interval at which they should be sent.  The third argument is the message that should be sent on each tick.  Calling this service call with an interval of `1000` and a request message of `tick` will result in a stream being returned that sent a `tick` message every second.
 
 The `sayHello` service call can be implemented by mapping the incoming `Source` of the names to say hello to:
 
